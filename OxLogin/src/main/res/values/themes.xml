@@ -1,0 +1,4 @@
+<resources>
+
+    <style name="Theme.XoLogin" parent="Theme.MaterialComponents.Light" />
+</resources>
