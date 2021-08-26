@@ -9,10 +9,21 @@ class OxApiTest {
     @Test
     fun testLogin(){
         runBlocking{
-            var  data = OxApiManager.Instance.questionApi.getExanName().data
+            OxApiManager.accountApi.login("weige@qq.com","weige").data?.let {
+                OxApiManager.auth = it.auth;
+                print(OxApiManager.accountApi.getUserInfo().data.toString())
+            }
+        }
+    }
+
+    @Test
+    fun testQuestion(){
+        runBlocking{
+
+            var  data = OxApiManager.examApi.getExams().data
             if (data!=null)
             {
-                OxApiManager.Instance.questionApi.getQuestion(data[0].name,null).data?.forEach {
+                OxApiManager.questionApi.getQuestions(data[0].id,0).data?.forEach {
                     print(it.toString())
                 }
 

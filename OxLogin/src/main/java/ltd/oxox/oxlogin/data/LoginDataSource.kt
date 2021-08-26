@@ -1,9 +1,11 @@
 package ltd.oxox.oxlogin.data
 
+import android.util.Log
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 import ltd.oxox.oxlogin.data.model.LoggedInUser
+import top.yumesekai.yumeapi.OxApiManager
 import java.io.IOException
 
 /**
@@ -11,12 +13,19 @@ import java.io.IOException
  */
 class LoginDataSource {
 
-    fun login(username: String, password: String): Result<LoggedInUser> {
+    suspend fun login(username: String, password: String): Result<LoggedInUser> {
         try {
             // TODO: handle loggedInUser authentication
-            val fakeUser = LoggedInUser(java.util.UUID.randomUUID().toString(), "Jane Doe")
-            return Result.Success(fakeUser)
+
+            OxApiManager.accountApi.login(username,password).let {
+                if(it.code!=0 || it.data == null)
+                    return Result.Error(IOException("Error logging in"+it.msg))
+                val fakeUser = LoggedInUser(java.util.UUID.randomUUID().toString(), it.data!!.auth)
+                return Result.Success(fakeUser)
+            }
+
         } catch (e: Throwable) {
+            Log.d("login",e.stackTraceToString())
             return Result.Error(IOException("Error logging in", e))
         }
     }

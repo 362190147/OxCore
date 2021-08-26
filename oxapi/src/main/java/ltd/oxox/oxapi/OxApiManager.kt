@@ -1,9 +1,9 @@
 package top.yumesekai.yumeapi
 
-import ltd.oxox.oxapi.AdminApi
-import ltd.oxox.oxapi.QuestionApi
+import ltd.oxox.oxapi.*
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
+import okhttp3.Request
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.*
@@ -11,36 +11,40 @@ import java.util.*
 /***
  * @author chenjunwei
  */
-class OxApiManager private constructor(){
-    private val retrofit:Retrofit
-
+object OxApiManager {
+    val accountApi: AccountApi
+    //var baseUrl = "http://192.168.1.2:3001/"
+    var baseUrl = "http://www.oxox.ltd:3001/"
+    private val retrofit: Retrofit
+    var auth = ""
     val admin: AdminApi
-    val questionApi:QuestionApi
+    val questionApi: QuestionApi
+    val userApi: UserApi
+    val examApi: ExamApi
+
     init {
         val client = OkHttpClient.Builder()
-                .addInterceptor(Interceptor {
-                    return@Interceptor it.proceed(it.request())
-                })
-                .build()
+            //统一添加token
+            .addInterceptor(Interceptor { chain ->
+                val original: Request = chain.request()
+                // Request customization: add request headers
+                val requestBuilder: Request.Builder = original.newBuilder()
+                    .addHeader("auth", auth)
+                val request: Request = requestBuilder.build()
+                chain.proceed(request)
+            })
+            .build()
 
         retrofit = Retrofit.Builder()
-                .baseUrl(baseUrl)
-                .client(client)
-                 .addConverterFactory(GsonConverterFactory.create())
-                 //.addCallAdapterFactory()
-                .build()
+            .baseUrl(baseUrl)
+            .client(client)
+            .addConverterFactory(GsonConverterFactory.create())
+            //.addCallAdapterFactory()
+            .build()
         admin = retrofit.create(AdminApi::class.java)
-        questionApi= retrofit.create(QuestionApi::class.java)
-    }
-
-
-    companion object{
-        var baseUrl = "http://www.oxox.ltd:3001/"
-        val Instance by lazy { OxApiManager() }
-        class Builder{
-            fun build(): OxApiManager {
-                return OxApiManager()
-            }
-        }
+        accountApi = retrofit.create(AccountApi::class.java)
+        questionApi = retrofit.create(QuestionApi::class.java)
+        userApi = retrofit.create(UserApi::class.java)
+        examApi = retrofit.create(ExamApi::class.java)
     }
 }
