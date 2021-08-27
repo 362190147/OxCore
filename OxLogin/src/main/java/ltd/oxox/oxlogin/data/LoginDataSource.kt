@@ -1,11 +1,8 @@
 package ltd.oxox.oxlogin.data
 
 import android.util.Log
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.launch
 import ltd.oxox.oxlogin.data.model.LoggedInUser
-import top.yumesekai.yumeapi.OxApiManager
+import ltd.oxox.oxapi.OxApiManager
 import java.io.IOException
 
 /**

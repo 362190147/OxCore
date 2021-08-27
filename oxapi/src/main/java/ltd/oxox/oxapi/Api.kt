@@ -1,8 +1,5 @@
 package ltd.oxox.oxapi
 import retrofit2.http.*
-import retrofit2.http.Field
-import retrofit2.http.FormUrlEncoded
-import retrofit2.http.POST
 import java.io.File
 
 import ltd.oxox.oxapi.data.*

@@ -1,12 +1,10 @@
-package top.yumesekai.yumeapi
+package ltd.oxox.oxapi
 
-import ltd.oxox.oxapi.*
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.util.*
 
 /***
  * @author chenjunwei
@@ -31,7 +29,12 @@ object OxApiManager {
                 val requestBuilder: Request.Builder = original.newBuilder()
                     .addHeader("auth", auth)
                 val request: Request = requestBuilder.build()
-                chain.proceed(request)
+                val response =chain.proceed(request)
+                if(response.code() == 200){
+
+                }
+
+                response
             })
             .build()
 

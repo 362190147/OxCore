@@ -2,7 +2,7 @@ package ltd.oxox.oxcore
 
 import kotlinx.coroutines.runBlocking
 import org.junit.Test
-import top.yumesekai.yumeapi.OxApiManager
+import ltd.oxox.oxapi.OxApiManager
 
 class OxApiTest {
 

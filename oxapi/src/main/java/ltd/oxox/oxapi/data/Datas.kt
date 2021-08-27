@@ -1,5 +1,5 @@
 package ltd.oxox.oxapi.data
-    data class UserInfo(var id: String,var user_name: String,var account: String,var priv: String,var head_path: String,var mail: String)
+data class UserInfo(var id: String,var user_name: String,var account: String,var priv: String,var head_path: String,var mail: String)
 data class UserData(var id: Int,var auth: String)
 data class Exam(var id: Int,var name: String)
 data class VersionInfo(var force: Boolean,var version: String,var version_num: Int,var url: String)
