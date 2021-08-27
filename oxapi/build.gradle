@@ -1,6 +1,7 @@
 plugins {
     id 'java-library'
     id 'kotlin'
+    id 'maven-publish'
 }
 
 java {
@@ -11,5 +12,35 @@ java {
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.0.2'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+}
+
+// Because the components are created only during the afterEvaluate phase, you must
+// configure your publications using the afterEvaluate() lifecycle method.
+afterEvaluate {
+    publishing {
+        publications {
+            // Creates a Maven publication called "release".
+            release(MavenPublication) {
+                // Applies the component for the release build variant.
+                //from components.release
+                from components.java
+
+                // You can then customize attributes of the publication as shown below.
+                groupId = 'com.github.362190147'
+                artifactId = 'final'
+                version = '0.0.1'
+            }
+            // Creates a Maven publication called “debug”.
+            debug(MavenPublication) {
+                // Applies the component for the debug build variant.
+               // from components.debug
+                from components.java
+
+                groupId = 'com.github.362190147'
+                artifactId = 'final-debug'
+                version = '0.0.1.'
+            }
+        }
+    }
 }
