@@ -49,12 +49,12 @@ afterEvaluate {
             }
         }
 
-        repositories {
-            maven {
-                name = 'OxCore'
-                url = layout.buildDirectory.dir("https://jitpack.io")
-            }
-        }
+//        repositories {
+//            maven {
+//                name = 'OxCore'
+//                url = layout.buildDirectory.dir("https://jitpack.io")
+//            }
+//        }
     }
 
 }
