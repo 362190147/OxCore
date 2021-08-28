@@ -14,11 +14,13 @@ dependencies {
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
 }
-
+// 指定上传的路径
+def localMavenRepo = 'file://' + new File(System.getProperty('user.home'), '.m2/repository').absolutePath
 // Because the components are created only during the afterEvaluate phase, you must
 // configure your publications using the afterEvaluate() lifecycle method.
 afterEvaluate {
     publishing {
+        print "afterEvaluate running ..."
         publications {
             // Creates a Maven publication called "release".
             release(MavenPublication) {
@@ -26,10 +28,12 @@ afterEvaluate {
                 //from components.release
                 from components.java
 
+                print "afterEvaluate running r"
+
                 // You can then customize attributes of the publication as shown below.
                 groupId = 'com.github.362190147'
-                artifactId = 'final'
-                version = '0.0.1'
+                artifactId = 'OxCore'
+                version = '0.0.2'
             }
             // Creates a Maven publication called “debug”.
             debug(MavenPublication) {
@@ -37,10 +41,26 @@ afterEvaluate {
                // from components.debug
                 from components.java
 
+                print "afterEvaluate running d"
+
                 groupId = 'com.github.362190147'
-                artifactId = 'final-debug'
-                version = '0.0.1.'
+                artifactId = 'OxCore-debug'
+                version = '0.0.2'
+            }
+        }
+
+        repositories {
+            maven {
+                name = 'OxCore'
+                url = layout.buildDirectory.dir("https://jitpack.io")
             }
         }
     }
+
+}
+
+
+
+task publishMaven( ){
+    print("test")
 }
