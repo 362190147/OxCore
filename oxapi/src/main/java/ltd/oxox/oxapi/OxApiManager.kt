@@ -15,10 +15,12 @@ object OxApiManager {
     var baseUrl = "http://www.oxox.ltd:3001/"
     private val retrofit: Retrofit
     var auth = ""
-    val admin: AdminApi
-    val questionApi: QuestionApi
-    val userApi: UserApi
-    val examApi: ExamApi
+    object Api{
+        var admin: AdminApi? = null
+        var question: QuestionApi? = null
+        var user: UserApi? = null
+        var exam: ExamApi? = null
+    }
 
     init {
         val client = OkHttpClient.Builder()
@@ -44,10 +46,10 @@ object OxApiManager {
             .addConverterFactory(GsonConverterFactory.create())
             //.addCallAdapterFactory()
             .build()
-        admin = retrofit.create(AdminApi::class.java)
+        Api.admin = retrofit.create(AdminApi::class.java)
         accountApi = retrofit.create(AccountApi::class.java)
-        questionApi = retrofit.create(QuestionApi::class.java)
-        userApi = retrofit.create(UserApi::class.java)
-        examApi = retrofit.create(ExamApi::class.java)
+        Api.question = retrofit.create(QuestionApi::class.java)
+        Api.user = retrofit.create(UserApi::class.java)
+        Api.exam = retrofit.create(ExamApi::class.java)
     }
 }
