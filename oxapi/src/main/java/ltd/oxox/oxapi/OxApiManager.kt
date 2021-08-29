@@ -16,10 +16,10 @@ object OxApiManager {
     private val retrofit: Retrofit
     var auth = ""
     class Api(retrofit: Retrofit){
-        var admin: AdminApi? = null
-        var question: QuestionApi? = null
-        var user: UserApi? = null
-        var exam: ExamApi? = null
+        var admin: AdminApi
+        var question: QuestionApi
+        var user: UserApi
+        var exam: ExamApi
         var account : AccountApi
         init {
             admin  = retrofit.create(AdminApi::class.java)
