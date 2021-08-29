@@ -10,17 +10,26 @@ import retrofit2.converter.gson.GsonConverterFactory
  * @author chenjunwei
  */
 object OxApiManager {
-    val accountApi: AccountApi
+
     //var baseUrl = "http://192.168.1.2:3001/"
     var baseUrl = "http://www.oxox.ltd:3001/"
     private val retrofit: Retrofit
     var auth = ""
-    object Api{
+    class Api(retrofit: Retrofit){
         var admin: AdminApi? = null
         var question: QuestionApi? = null
         var user: UserApi? = null
         var exam: ExamApi? = null
+        var account : AccountApi
+        init {
+            admin  = retrofit.create(AdminApi::class.java)
+            account = retrofit.create(AccountApi::class.java)
+            question = retrofit.create(QuestionApi::class.java)
+            user = retrofit.create(UserApi::class.java)
+            exam = retrofit.create(ExamApi::class.java)
+        }
     }
+    val api:Api
 
     init {
         val client = OkHttpClient.Builder()
@@ -31,7 +40,8 @@ object OxApiManager {
                 val requestBuilder: Request.Builder = original.newBuilder()
                     .addHeader("auth", auth)
                 val request: Request = requestBuilder.build()
-                val response =chain.proceed(request)
+                val response = chain.proceed(request)
+
                 if(response.code() == 200){
 
                 }
@@ -46,10 +56,6 @@ object OxApiManager {
             .addConverterFactory(GsonConverterFactory.create())
             //.addCallAdapterFactory()
             .build()
-        Api.admin = retrofit.create(AdminApi::class.java)
-        accountApi = retrofit.create(AccountApi::class.java)
-        Api.question = retrofit.create(QuestionApi::class.java)
-        Api.user = retrofit.create(UserApi::class.java)
-        Api.exam = retrofit.create(ExamApi::class.java)
+        api = Api(retrofit);
     }
 }
