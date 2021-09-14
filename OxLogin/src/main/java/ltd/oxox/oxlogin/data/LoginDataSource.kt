@@ -12,9 +12,7 @@ class LoginDataSource {
 
     suspend fun login(username: String, password: String): Result<LoggedInUser> {
         try {
-            // TODO: handle loggedInUser authentication
-
-            OxApiManager.accountApi.login(username,password).let {
+            OxApiManager.api.account.login(username,password).let {
                 if(it.code!=0 || it.data == null)
                     return Result.Error(IOException("Error logging in"+it.msg))
                 val fakeUser = LoggedInUser(java.util.UUID.randomUUID().toString(), it.data!!.auth)
