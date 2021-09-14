@@ -5,8 +5,8 @@ plugins {
 }
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_1_7
-    targetCompatibility = JavaVersion.VERSION_1_7
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
 }
 
 dependencies {
@@ -36,17 +36,17 @@ afterEvaluate {
                 version = '0.0.1'
             }
             // Creates a Maven publication called “debug”.
-            debug(MavenPublication) {
-                // Applies the component for the debug build variant.
-               // from components.debug
-                from components.java
-
-                print "afterEvaluate running d"
-
-                groupId = 'com.github.362190147'
-                artifactId = 'OxCore-debug'
-                version = '0.0.3'
-            }
+//            debug(MavenPublication) {
+//                // Applies the component for the debug build variant.
+//               // from components.debug
+//                from components.java
+//
+//                print "afterEvaluate running d"
+//
+//                groupId = 'com.github.362190147'
+//                artifactId = 'OxCore-debug'
+//                version = '0.0.3'
+//            }
         }
 
 //        repositories {
