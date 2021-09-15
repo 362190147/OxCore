@@ -33,7 +33,7 @@ afterEvaluate {
                 // You can then customize attributes of the publication as shown below.
                 groupId = 'com.github.362190147'
                 artifactId = 'OxCore'
-                version = '0.0.2'
+                version = '0.0.3'
             }
             // Creates a Maven publication called “debug”.
 //            debug(MavenPublication) {
