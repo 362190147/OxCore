@@ -3,6 +3,7 @@ plugins {
     id 'kotlin'
     id 'maven-publish'
 }
+group = "com.github.362190147"
 
 java {
     sourceCompatibility = JavaVersion.VERSION_1_8
