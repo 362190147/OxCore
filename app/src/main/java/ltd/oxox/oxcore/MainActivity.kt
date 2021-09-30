@@ -9,7 +9,6 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import ltd.oxox.oxcore.databinding.ActivityMainBinding
-import ltd.oxox.oxlogin.ui.login.OxLoginActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -32,8 +31,6 @@ class MainActivity : AppCompatActivity() {
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
         }
-        val intent=Intent(this,OxLoginActivity::class.java)
-        startActivity(intent);
     }
 
     override fun onSupportNavigateUp(): Boolean {
